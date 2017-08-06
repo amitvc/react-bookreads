@@ -12,14 +12,7 @@ import SearchPage from './components/SearchPage';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: true,
-      books:[]
+    books:[]
   }
 
 
@@ -54,23 +47,18 @@ class BooksApp extends React.Component {
 
     /**
      * Function is responsible to move a book from current shelf to destination shelf.
-     * @param shelfId
+     * @param destShelf
      * @param bookId
      */
-    moveBookToShelf = (shelfId, bookId) => {
-
-        let IsInShelves = this.state.books.find(({id}) => id === bookId);
-        console.log(IsInShelves);
-        console.log(shelfId);
+    moveBookToShelf = (destShelf, bookId) => {
         this.setState((state)=>{
             state.books.forEach(book => {
+                // Find the matching book Id and then change the shelf to destination shelf.
                 if(book.id === bookId) {
-                    book.shelf =shelfId;
+                    book.shelf =destShelf;
                 }
             });
-
         });
-
     }
 
   render() {
