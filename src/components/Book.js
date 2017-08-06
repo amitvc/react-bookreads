@@ -19,7 +19,8 @@ class Book extends React.Component {
         title: PropTypes.string.isRequired,
         author: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
-        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)).isRequired
+        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)).isRequired,
+        id:Prop.string.isRequired
     };
 
 
@@ -30,7 +31,7 @@ class Book extends React.Component {
      * to which the book needs to be moved.
      */
     moveBookToShelfHandler(selectedShelf) {
-        console.log("Move to shelf " + selectedShelf);
+        console.log("Move to shelf " + selectedShelf + " book id "+ this.props.id);
     }
 
     renderBook() {
