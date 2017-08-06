@@ -20,7 +20,8 @@ class Book extends React.Component {
         author: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
         shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)).isRequired,
-        id:Prop.string.isRequired
+        id:PropTypes.string.isRequired,
+        moveBookToShelf: PropTypes.func.isRequired
     };
 
 
@@ -30,8 +31,8 @@ class Book extends React.Component {
      * @param selectedShelf The value of the popup menu item selected which is basically the shelf name
      * to which the book needs to be moved.
      */
-    moveBookToShelfHandler(selectedShelf) {
-        console.log("Move to shelf " + selectedShelf + " book id "+ this.props.id);
+    moveBookToShelfHandler = (selectedShelf) => {
+        this.props.moveBookToShelf(selectedShelf, this.props.id);
     }
 
     renderBook() {

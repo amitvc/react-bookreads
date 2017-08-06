@@ -44,12 +44,33 @@ class BooksApp extends React.Component {
       return (
       <div className="list-books-content">
         <div>
-          <BookShelf title="Currently Reading" shelfType={SHELF_TYPES.CURRENTLY_READING} books={this.state.books}/>
-          <BookShelf title="Want to Read" shelfType={SHELF_TYPES.WANT_TO_READ} books={this.state.books}/>
-          <BookShelf title="Read" shelfType={SHELF_TYPES.READ} books={this.state.books}/>
+          <BookShelf title="Currently Reading" shelfType={SHELF_TYPES.CURRENTLY_READING} books={this.state.books} moveBookToShelf={this.moveBookToShelf}/>
+          <BookShelf title="Want to Read" shelfType={SHELF_TYPES.WANT_TO_READ} books={this.state.books} moveBookToShelf={this.moveBookToShelf}/>
+          <BookShelf title="Read" shelfType={SHELF_TYPES.READ} books={this.state.books} moveBookToShelf={this.moveBookToShelf}/>
         </div>
       </div>
       );
+    }
+
+    /**
+     * Function is responsible to move a book from current shelf to destination shelf.
+     * @param shelfId
+     * @param bookId
+     */
+    moveBookToShelf = (shelfId, bookId) => {
+
+        let IsInShelves = this.state.books.find(({id}) => id === bookId);
+        console.log(IsInShelves);
+        console.log(shelfId);
+        this.setState((state)=>{
+            state.books.forEach(book => {
+                if(book.id === bookId) {
+                    book.shelf =shelfId;
+                }
+            });
+
+        });
+
     }
 
   render() {
