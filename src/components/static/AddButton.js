@@ -9,7 +9,7 @@ import React from 'react';
 const AddButton =  (props) => {
     return (
         <div className="open-search">
-            <Link to='test'>Add a book</Link>
+            <Link to='/search'>Add a book</Link>
          </div>
     );
 }
