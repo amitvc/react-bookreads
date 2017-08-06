@@ -1,5 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI';
 import './App.css'
 import Header from './components/static/AppHeader';
 import BookShelf from "./components/BookShelf";
@@ -61,13 +61,43 @@ class BooksApp extends React.Component {
         });
     }
 
+    addBookToShelf = (destShelf, bookId) => {
+       BooksAPI.get(bookId).then((book) => {
+          this.setState((state) => {
+              let bookAlreadyAdded = false;
+              state.books.forEach(book => {
+                  // Find the matching book Id and then change the shelf to destination shelf.
+                  if(book.id === bookId) {
+                      book.shelf =destShelf;
+                      bookAlreadyAdded = true;
+                  }
+              });
+
+              if(!bookAlreadyAdded) {
+                  // Change the shelf property to the destination shelf to which the user wants to add the book.
+                  book.shelf = destShelf;
+                  state.books.push(book);
+              }
+
+          });
+       });
+    }
+
+
+
+    renderSearchPage = () => {
+      return (
+          <SearchPage addBookToShelf={this.addBookToShelf}/>
+      );
+    }
+
   render() {
     return (
       <div className="app">
         <div className="list-books">
           <Header/>
           <Route exact path="/" render={this.renderShelves}/>
-          <Route path="/search" component={SearchPage}/>
+          <Route path="/search" render={this.renderSearchPage}/>
           <AddButton/>
         </div>
       </div>

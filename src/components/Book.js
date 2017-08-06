@@ -16,11 +16,11 @@ import {SHELF_TYPES}  from '../utils/AppEnum';
 class Book extends React.Component {
 
     static propTypes = {
-        title: PropTypes.string.isRequired,
-        author: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)).isRequired,
-        id:PropTypes.string.isRequired,
+        title: PropTypes.string,
+        author: PropTypes.string,
+        url: PropTypes.string,
+        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)),
+        id:PropTypes.string,
         moveBookToShelf: PropTypes.func.isRequired
     };
 

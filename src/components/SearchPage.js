@@ -3,9 +3,36 @@
  */
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import * as BooksAPI from './../BooksAPI';
+import Book from './Book';
+import {SHELF_TYPES} from '../utils/AppEnum';
 
-
+/**
+ * Class is responsible to provide a search component to the app where
+ * users can search for books.
+ */
 class SearchPage extends React.Component {
+
+    static propTypes = {
+        addNewBooksToShelf : PropTypes.func
+    }
+
+    state = {
+        results : []
+    }
+
+    addNewBooksToShelf = (event) => {
+        const query = event.target.value;
+
+        BooksAPI.search(query, 10).then((books)=> {
+            this.setState({results:books});
+        });
+    }
+
+    moveBookToShelf = (shelfId, bookId) => {
+        this.props.addBookToShelf(shelfId,bookId);
+    }
 
     render() {
         return(<div className="search-books">
@@ -20,12 +47,27 @@ class SearchPage extends React.Component {
                      However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                      you don't find a specific author or title. Every search is limited by search terms.
                      */}
-                    <input type="text" placeholder="Search by title or author"/>
+                    <input type="text" placeholder="Search by title or author" onKeyUp={this.addNewBooksToShelf}/>
 
                 </div>
             </div>
             <div className="search-books-results">
-                <ol className="books-grid"></ol>
+                <ol className="books-grid">
+                    {this.state.results && this.state.results.length > 0 && this.state.results.map((book) => {
+                        return (
+                            <li key={book.id}>
+                                <Book id={book.id}
+                                      title={book.title}
+                                      author={Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}
+                                      shelfType={SHELF_TYPES.NONE}
+                                      url={book.imageLinks && book.imageLinks.thumbnail}
+                                      moveBookToShelf={this.moveBookToShelf}
+                                />
+                            </li>
+                        )
+                    })}
+
+                </ol>
             </div>
         </div>);
     }

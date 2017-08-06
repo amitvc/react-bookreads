@@ -42,7 +42,7 @@ class BookShelf extends React.Component {
                                           author={book.authors[0]}
                                           shelfType={this.props.shelfType}
                                           url={book.imageLinks.smallThumbnail}
-                                          moveBookToShelf={this.props.moveBookToShelf}
+                                          moveBookToShelf={this.moveBookToShelf}
                                     />
                                 </li>
                             )
