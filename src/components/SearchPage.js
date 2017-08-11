@@ -26,12 +26,22 @@ class SearchPage extends React.Component {
         const query = event.target.value;
 
         BooksAPI.search(query, 10).then((books)=> {
-            this.setState({results:books});
+            this.setState({result:[]});
+            setTimeout(() => {
+                this.setState({results:books});
+            }, 300);
         });
     }
 
     moveBookToShelf = (shelfId, bookId) => {
         this.props.addBookToShelf(shelfId,bookId);
+        this.setState((state)=> {
+            this.state.results.forEach((book) => {
+               if(book.id === bookId) {
+                   book.shelf = shelfId;
+               }
+            });
+        });
     }
 
     render() {

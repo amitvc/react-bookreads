@@ -51,13 +51,21 @@ class BooksApp extends React.Component {
      * @param bookId
      */
     moveBookToShelf = (destShelf, bookId) => {
-        this.setState((state)=>{
+
+        this.setState((state) => {
             state.books.forEach(book => {
                 // Find the matching book Id and then change the shelf to destination shelf.
-                if(book.id === bookId) {
-                    book.shelf =destShelf;
+                if (book.id === bookId) {
+                    book.shelf = destShelf;
                 }
             });
+        });
+
+        this.state.books.forEach(book => {
+            if(book.id === bookId) {
+                BooksAPI.update(book,destShelf).then((res) => {
+                });
+            }
         });
     }
 
