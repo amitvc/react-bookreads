@@ -11,7 +11,7 @@ import {SHELF_TYPES} from '../utils/AppEnum';
 class PopupMenu extends React.Component {
 
     static propTypes = {
-        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)).isRequired,
+        shelfType: PropTypes.oneOf(Object.values(SHELF_TYPES)),
         moveBookToShelfHandler: PropTypes.func.isRequired
     }
 

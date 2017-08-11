@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as BooksAPI from './../BooksAPI';
 import Book from './Book';
-import {SHELF_TYPES} from '../utils/AppEnum';
 
 /**
  * Class is responsible to provide a search component to the app where
@@ -36,7 +35,7 @@ class SearchPage extends React.Component {
     moveBookToShelf = (shelfId, bookId) => {
         this.props.addBookToShelf(shelfId,bookId);
         this.setState((state)=> {
-            this.state.results.forEach((book) => {
+            state.results.forEach((book) => {
                if(book.id === bookId) {
                    book.shelf = shelfId;
                }
@@ -69,7 +68,7 @@ class SearchPage extends React.Component {
                                 <Book id={book.id}
                                       title={book.title}
                                       author={Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}
-                                      shelfType={SHELF_TYPES.NONE}
+                                      shelfType={book.shelf}
                                       url={book.imageLinks && book.imageLinks.thumbnail}
                                       moveBookToShelf={this.moveBookToShelf}
                                 />

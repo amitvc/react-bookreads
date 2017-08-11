@@ -61,7 +61,7 @@ class BooksApp extends React.Component {
             });
         });
 
-        this.state.books.forEach(book => {
+        this.state.books.forEach((book) => {
             if(book.id === bookId) {
                 BooksAPI.update(book,destShelf).then((res) => {
                 });
@@ -85,6 +85,9 @@ class BooksApp extends React.Component {
                   // Change the shelf property to the destination shelf to which the user wants to add the book.
                   book.shelf = destShelf;
                   state.books.push(book);
+                  BooksAPI.update(book,destShelf).then((res) => {
+                      console.log("Book added to shelf");
+                  });
               }
 
           });
