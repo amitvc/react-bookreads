@@ -14,7 +14,8 @@ import Book from './Book';
 class SearchPage extends React.Component {
 
     static propTypes = {
-        addNewBooksToShelf : PropTypes.func
+        addNewBooksToShelf : PropTypes.func,
+        getBookShelf : PropTypes.func.isRequired
     }
 
     state = {
@@ -27,6 +28,11 @@ class SearchPage extends React.Component {
         BooksAPI.search(query, 10).then((books)=> {
             this.setState({result:[]});
             setTimeout(() => {
+                if(books && books.length > 0) {
+                    books.forEach((book) => {
+                        book.shelf = this.props.getBookShelf(book.id);
+                    });
+                }
                 this.setState({results:books});
             }, 300);
         });

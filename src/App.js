@@ -94,11 +94,25 @@ class BooksApp extends React.Component {
        });
     }
 
+    /**
+     * Function responsible to find bookShelf for a book from current books loaded for user.
+     * @param bookId
+     * @returns {undefined}
+     */
+    getBookShelf = (bookId) => {
+        let bookShelf = SHELF_TYPES.NONE; // Start with default of none.
+        this.state.books.forEach((book) => {
+           if(book.id === bookId) {
+               bookShelf = book.shelf;
+           }
+        });
+        return bookShelf;
+    }
 
 
     renderSearchPage = () => {
       return (
-          <SearchPage addBookToShelf={this.addBookToShelf}/>
+          <SearchPage addBookToShelf={this.addBookToShelf} getBookShelf={this.getBookShelf}/>
       );
     }
 
